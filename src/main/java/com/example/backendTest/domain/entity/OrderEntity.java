@@ -43,12 +43,12 @@ public class OrderEntity {
     private Long itemId;
 
     @Builder
-    public OrderEntity(Long id, String contactEmail, String contactName, String mobile, String itemType, Long itemId) {
-        this.id = id;
+    public OrderEntity(String contactEmail, String contactName, String mobile, String itemType, Long itemId) {
         this.contactEmail = contactEmail;
         this.contactName = contactName;
         this.mobile = mobile;
         this.itemType = itemType;
         this.itemId = itemId;
     }
+
 }

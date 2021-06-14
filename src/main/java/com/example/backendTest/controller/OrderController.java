@@ -2,6 +2,7 @@ package com.example.backendTest.controller;
 
 import com.example.backendTest.domain.dto.ContactInfoDTO;
 import com.example.backendTest.domain.dto.ItemsDTO;
+import com.example.backendTest.domain.entity.OrderEntity;
 import com.example.backendTest.service.OrderVerification;
 import com.example.backendTest.service.OrderServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -59,6 +60,7 @@ public class OrderController {
 
 
         // 주문 정보 저장
+        OrderEntity orderEntity = orderService.saveOrderInfo(contactInfoDTO, itemsDTO);
 
 
 
