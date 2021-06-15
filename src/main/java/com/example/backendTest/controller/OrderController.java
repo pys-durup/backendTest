@@ -5,6 +5,7 @@ import com.example.backendTest.domain.dto.ItemsDTO;
 import com.example.backendTest.domain.entity.OrderEntity;
 import com.example.backendTest.service.OrderVerification;
 import com.example.backendTest.service.OrderServiceImpl;
+import com.example.backendTest.service.WarehousingRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,12 +22,15 @@ public class OrderController {
     private ObjectMapper objectMapper = new ObjectMapper();
     private final OrderServiceImpl orderService;
     private final OrderVerification orderVerification;
+    private final WarehousingRequest warehousingRequest;
 
     @Autowired
-    public OrderController(OrderServiceImpl orderService, OrderVerification orderVerification) {
+    public OrderController(OrderServiceImpl orderService, OrderVerification orderVerification, WarehousingRequest warehousingRequest) {
         this.orderService = orderService;
         this.orderVerification = orderVerification;
+        this.warehousingRequest = warehousingRequest;
     }
+
 
     @PostMapping(value = "/order")
     public Object order(@RequestBody HashMap<String, Object> messageBody) {
@@ -63,8 +67,12 @@ public class OrderController {
         OrderEntity orderEntity = orderService.saveOrderInfo(contactInfoDTO, itemsDTO);
 
 
+        // 입고 요청 체크
+        warehousingRequest.checkStock(itemsDTO);
 
-        return "restTest";
+
+
+       return "restTest";
     }
 
 }
