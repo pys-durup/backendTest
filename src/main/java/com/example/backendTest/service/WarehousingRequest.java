@@ -24,26 +24,38 @@ public class WarehousingRequest {
         String itemType = itemsDTO.getItemType();
         Long id = itemsDTO.getId();
         Integer stock = 0;
+        String itemName = "";
 
         if (itemType.equals("food")) {
             FoodEntity foodEntity = foodRepository.getOne(id);
             stock = foodEntity.getStock();
+            itemName = foodEntity.getItemName();
 
         } else if (itemType.equals("clothes")) {
             ClothesEntity clothesEntity = clothesRepository.getOne(id);
             stock = clothesEntity.getStock();
+            itemName = clothesEntity.getItemName();
         }
 
         // 재고가 10개 미만
         if (stock < 10) {
             // 입고 요청
-            warehousingRequest();
+            warehousingRequest(itemName);
         }
     }
 
-    // 재고가 10개 미만이면 입고 요청
-    public void warehousingRequest() {
+    /**
+     * 재고가 10개 미만이면 입고 요청테이블에 입력
+     * 입고 요청은 암호화된 키값
+     * 옷이면 이름 뒤에 숫자 123
+     * 음식이면 이름 앞에 숫자 123
+     * @param itemName
+     */
+    public void warehousingRequest(String itemName) {
         System.out.println("WarehousingRequest.warehousingRequest");
+
+
+
     }
 
 }
